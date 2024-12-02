@@ -166,6 +166,7 @@ class _BackofficeState extends State<Backoffice> {
         child: Row(
           children: [
             Expanded(
+
               flex: 2,
               child: Column(
                 children: [
