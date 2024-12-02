@@ -106,6 +106,7 @@ class _BackofficeState extends State<Backoffice> {
     }
   }
 
+
   Future<void> _loadCheckins() async {
     setState(() {
       isLoading = true;
