@@ -104,9 +104,7 @@ class _BackofficeState extends State<Backoffice> {
         SnackBar(content: Text('진료 기록 저장에 실패했습니다: $e')),
       );
     }
-
   }
-
 
   Future<void> _loadCheckins() async {
     setState(() {
