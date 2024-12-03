@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   intl: ^0.20.1
+  flutter_web_plugins:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
