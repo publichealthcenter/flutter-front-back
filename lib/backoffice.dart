@@ -638,13 +638,50 @@ class _BackofficeState extends State<Backoffice> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    TextField(
-                      controller: controllers['medicineName'],
-                      decoration: const InputDecoration(
-                        labelText: '약품명',
-                        border: OutlineInputBorder(),
+                    DropdownButton<String>(
+                      isExpanded: true,
+                      hint: const Text('약 선택하기'),
+                      value: controllers['medicineName']?.text.isEmpty ?? true ? null : controllers['medicineName']?.text,
+                      items: [
+                        DropdownMenuItem(value: '타이레놀', child: Text('타이레놀')),
+                        DropdownMenuItem(value: '이부프로펜', child: Text('이부프로펜')),
+                        DropdownMenuItem(value: '아스피린', child: Text('아스피린')),
+                        DropdownMenuItem(value: '아목시실린', child: Text('아목시실린')),
+                        DropdownMenuItem(value: '세파클러', child: Text('세파클러')),
+                        DropdownMenuItem(value: '독시사이클린', child: Text('독시사이클린')),
+                        DropdownMenuItem(value: '훼스탈', child: Text('훼스탈')),
+                        DropdownMenuItem(value: '베아제', child: Text('베아제')),
+                        DropdownMenuItem(value: '겔포스', child: Text('겔포스')),
+                        DropdownMenuItem(value: '클라리틴', child: Text('클라리틴')),
+                        DropdownMenuItem(value: '지르텍', child: Text('지르텍')),
+                        DropdownMenuItem(value: '알레그라', child: Text('알레그라')),
+                        DropdownMenuItem(value: '프레드니솔론', child: Text('프레드니솔론')),
+                        DropdownMenuItem(value: '덱사메타손', child: Text('덱사메타손')),
+                        DropdownMenuItem(value: '후시딘', child: Text('후시딘')),
+                        DropdownMenuItem(value: '마데카솔', child: Text('마데카솔')),
+                        DropdownMenuItem(value: '베타딘', child: Text('베타딘')),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          if (value != null) {
+                            controllers['medicineName']?.text = value;
+                          }
+                        });
+                      },
+                      style: const TextStyle(color: Colors.black, fontSize: 16),
+                      dropdownColor: Colors.white,
+                      underline: Container(
+                        height: 1,
+                        color: Colors.transparent,
                       ),
                     ),
+                    // TextField(
+                    //   controller: controllers['medicineName'],
+                    //   decoration: const InputDecoration(
+                    //     labelText: '약품명',
+                    //     border: OutlineInputBorder(),
+                    //   ),
+                    // ),
                     const SizedBox(height: 8),
                     TextField(
                       controller: controllers['dosage'],
