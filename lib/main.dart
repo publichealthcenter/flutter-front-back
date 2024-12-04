@@ -25,17 +25,17 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       onGenerateRoute: (settings) {
-        print('Current route: ${settings.name}');
         switch (settings.name) {
           case '/acceptance':
             return MaterialPageRoute(builder: (context) => const Acceptance());
-          case '/backoffice':
+          case '/settings':
             return MaterialPageRoute(builder: (context) => const Backoffice());
-        // Uncomment and update when FloorInfo is ready
         // case '/floorinfo':
         //   return MaterialPageRoute(builder: (context) => const FloorInfo());
           default:
-            return MaterialPageRoute(builder: (context) => const Backoffice());
+            return MaterialPageRoute(builder: (context) => const Scaffold(
+              body: Center(child: Text('flutter web view'),),
+            ));
         }
       },
     );

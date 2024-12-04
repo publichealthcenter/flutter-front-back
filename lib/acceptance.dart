@@ -64,7 +64,6 @@ class _AcceptanceState extends State<Acceptance> {
                       return null;
                     },
                     onSaved: (value) {
-                      // Keep the formatted phone number with hyphens
                       _phoneNumber = value!;
                     },
                   ),

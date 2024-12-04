@@ -17,7 +17,6 @@ class _AcceptanceDetailScreenState extends ConsumerState<AcceptanceDetailScreen>
   @override
   void initState() {
     super.initState();
-    // Fetch acceptance records when the screen is first loaded
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(acceptanceDetailProvider.notifier).fetchAcceptanceRecords(widget.phoneNumber);
     });
@@ -49,7 +48,6 @@ class _AcceptanceDetailScreenState extends ConsumerState<AcceptanceDetailScreen>
       );
     }
 
-    // Take the first record for displaying details
     final record = acceptanceState.acceptanceRecords.first;
 
     return Scaffold(

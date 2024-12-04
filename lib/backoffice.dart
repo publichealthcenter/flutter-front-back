@@ -36,7 +36,6 @@ class _BackofficeState extends State<Backoffice> {
 
   @override
   void dispose() {
-    // 컨트롤러들 해제
     diagnosisController.dispose();
     commentController.dispose();
     for (var controllers in prescriptionControllers) {
@@ -57,14 +56,12 @@ class _BackofficeState extends State<Backoffice> {
 
   void _clearPrescriptionFields() {
     setState(() {
-      // 기존 컨트롤러들 해제
       for (var controllers in prescriptionControllers) {
         controllers.values.forEach((controller) => controller.dispose());
       }
       prescriptionControllers.clear();
-      // 새로운 빈 필드 추가
       _addPrescriptionField();
-      // 진단과 비고 초기화
+
       diagnosisController.clear();
       commentController.clear();
     });
@@ -534,36 +531,7 @@ class _BackofficeState extends State<Backoffice> {
                     bottom: 16,
                     right: 16,
                     child: ElevatedButton(
-                      onPressed: selectedCheckin != null
-                          ? () async {
-                              final prescriptions = prescriptionControllers.map((controllers) {
-                                return {
-                                  'medicine_name': controllers['medicineName']!.text,
-                                  'dosage': controllers['dosage']!.text,
-                                  'usage_instructions': controllers['usageInstructions']!.text,
-                                };
-                              }).toList();
-
-                              try {
-                                await _apiService.postMedicalRecord(
-                                  selectedCheckin!.patientId,
-                                  diagnosisController.text,
-                                  commentController.text,
-                                  prescriptions,
-                                );
-                                setState(() {
-                                  selectedCheckin = null;
-                                  medicalRecords = [];
-                                  prescriptionControllers.clear();
-                                });
-                              } catch (e) {
-                                print('Error: $e');
-                              }
-
-                              diagnosisController.clear();
-                              commentController.clear();
-                            }
-                          : null,
+                      onPressed: _completeMedicalRecord,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 32,
@@ -668,13 +636,6 @@ class _BackofficeState extends State<Backoffice> {
                         color: Colors.transparent,
                       ),
                     ),
-                    // TextField(
-                    //   controller: controllers['medicineName'],
-                    //   decoration: const InputDecoration(
-                    //     labelText: '약품명',
-                    //     border: OutlineInputBorder(),
-                    //   ),
-                    // ),
                     const SizedBox(height: 8),
                     TextField(
                       controller: controllers['dosage'],

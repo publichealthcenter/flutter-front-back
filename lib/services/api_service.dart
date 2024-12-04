@@ -9,9 +9,6 @@ class ApiService {
 
   ApiService() : _dio = Dio(BaseOptions(
     baseUrl: baseUrl,
-    // headers: {
-    //   'accept': 'application/json',
-    // },
   ));
 
   Future<List<CheckIn>> getCheckins() async {
@@ -38,7 +35,6 @@ class ApiService {
   Future<List<MedicalRecord>> getMedicalRecords(int patientId) async {
     try {
       final response = await _dio.get('/medical-records/$patientId');
-      // print('Medical Records API Response: ${response.data}');
       
       if (response.data['status'] == 'success') {
         final medicalRecordResponse = MedicalRecordResponse.fromJson(response.data);
