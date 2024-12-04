@@ -1,19 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:untitled/acceptance.dart';
 import 'package:untitled/backoffice.dart';
 
 void main() {
-  runApp(const MyApp());
+  // Ensure URL strategy is set before running the app
+  setUrlStrategy(PathUrlStrategy());
+
+  // Wrap the app with ProviderScope
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Backoffice(),
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        print('Current route: ${settings.name}');
+        switch (settings.name) {
+          case '/acceptance':
+            return MaterialPageRoute(builder: (context) => const Acceptance());
+          case '/backoffice':
+            return MaterialPageRoute(builder: (context) => const Backoffice());
+        // Uncomment and update when FloorInfo is ready
+        // case '/floorinfo':
+        //   return MaterialPageRoute(builder: (context) => const FloorInfo());
+          default:
+            return MaterialPageRoute(builder: (context) => const Backoffice());
+        }
+      },
     );
   }
 }

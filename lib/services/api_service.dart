@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import '../models/checkin.dart';
-import '../models/medical_record.dart';
+import 'package:untitled/models/acceptance_model.dart';
+import 'package:untitled/models/checkin.dart';
+import 'package:untitled/models/medical_record.dart';
 
 class ApiService {
   final Dio _dio;
@@ -37,7 +38,7 @@ class ApiService {
   Future<List<MedicalRecord>> getMedicalRecords(int patientId) async {
     try {
       final response = await _dio.get('/medical-records/$patientId');
-      print('Medical Records API Response: ${response.data}');
+      // print('Medical Records API Response: ${response.data}');
       
       if (response.data['status'] == 'success') {
         final medicalRecordResponse = MedicalRecordResponse.fromJson(response.data);
@@ -51,6 +52,26 @@ class ApiService {
     } catch (e) {
       print('Other error: $e');
       throw Exception('의료 기록을 불러오는데 실패했습니다: $e');
+    }
+  }
+
+  Future<List<AcceptanceModel>> getAcceptanceRecord(String phoneNum) async {
+    try {
+      final response = await _dio.get('/medical-records/phone/$phoneNum');
+      print('Acceptance API Response: ${response.data}');
+
+      if (response.data['status'] == 'success') {
+        final acceptanceResponse = AcceptanceResponse.fromJson(response.data);
+        return acceptanceResponse.data;
+      } else {
+        throw Exception('수납 API 응답 실패: ${response.data}');
+      }
+    } on DioException catch (e) {
+      print('Dio error: ${e.message}');
+      throw _handleDioError(e);
+    } catch (e) {
+      print('Other error: $e');
+      throw Exception('수납 기록을 불러오는데 실패했습니다: $e');
     }
   }
 

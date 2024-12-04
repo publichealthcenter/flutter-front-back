@@ -455,13 +455,6 @@ class _BackofficeState extends State<Backoffice> {
                                                 width: 200,
                                                 height: 80,
                                               ),
-
-
-
-
-
-
-
                                             ],
                                           ),
                                         ],
@@ -642,7 +635,7 @@ class _BackofficeState extends State<Backoffice> {
                       isExpanded: true,
                       hint: const Text('약 선택하기'),
                       value: controllers['medicineName']?.text.isEmpty ?? true ? null : controllers['medicineName']?.text,
-                      items: [
+                      items: const [
                         DropdownMenuItem(value: '타이레놀', child: Text('타이레놀')),
                         DropdownMenuItem(value: '이부프로펜', child: Text('이부프로펜')),
                         DropdownMenuItem(value: '아스피린', child: Text('아스피린')),
