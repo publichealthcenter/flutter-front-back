@@ -5,10 +5,8 @@ import 'package:untitled/acceptance.dart';
 import 'package:untitled/backoffice.dart';
 
 void main() {
-  // Ensure URL strategy is set before running the app
   setUrlStrategy(PathUrlStrategy());
 
-  // Wrap the app with ProviderScope
   runApp(
     const ProviderScope(
       child: MyApp(),
