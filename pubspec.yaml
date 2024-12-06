@@ -39,10 +39,8 @@ dependencies:
   intl: ^0.20.1
   flutter_web_plugins:
     sdk: flutter
-<<<<<<< HEAD
   flutter_riverpod: ^2.6.1
-=======
->>>>>>> 05929bb169581109d79527f0006ad078222c21f4
+
 
 dev_dependencies:
   flutter_test:

@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:untitled/acceptance.dart';
 import 'package:untitled/backoffice.dart';
-// import 'package:untitled/page/floorinfo.dart';
-
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:untitled/page/floorinfo.dart';
 
 void main() {
   setUrlStrategy(PathUrlStrategy());
@@ -30,8 +28,8 @@ class MyApp extends ConsumerWidget {
             return MaterialPageRoute(builder: (context) => const Acceptance());
           case '/settings':
             return MaterialPageRoute(builder: (context) => const Backoffice());
-        // case '/floorinfo':
-        //   return MaterialPageRoute(builder: (context) => const FloorInfo());
+        case '/floorinfo':
+          return MaterialPageRoute(builder: (context) => const FloorInfo());
           default:
             return MaterialPageRoute(builder: (context) => const Scaffold(
               body: Center(child: Text('flutter web view'),),
