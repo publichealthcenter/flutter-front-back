@@ -16,95 +16,105 @@ class _AcceptanceState extends State<Acceptance> {
   bool _isButtonActive = false;
 
   void _handleInputChange(String value) {
-    final formattedValue = PhoneNumberFormatter.formatPhoneNumber(value);
     setState(() {
-      _phoneNumber = formattedValue;
-      _isButtonActive = formattedValue.length > 3; // ###-####-####
+      _phoneNumber = value;
+      _isButtonActive = value.length == 13;
     });
   }
 
-  void _submitForm() async {
+  void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(_phoneNumber);
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => AcceptanceDetailScreen(phoneNumber: _phoneNumber),
-      ));
+      print('이동하려는 전화번호: $_phoneNumber');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AcceptanceDetailScreen(phoneNumber: _phoneNumber),
+        ),
+      );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
         alignment: Alignment.topCenter,
-        child: Column(
-          children: [
-            const SizedBox(height: 96),
-            Text(
-              '휴대폰 번호 입력해주세요',
-              style: const TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 40),
-            // 입력 필드
-            Container(
-              width: 360,
-              child: TextField(
-                keyboardType: TextInputType.phone,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  PhoneNumberFormatter(),
-                ],
-                textAlign: TextAlign.start,
-                style: const TextStyle(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const SizedBox(height: 96),
+              const Text(
+                '휴대폰 번호 입력해주세요',
+                style: TextStyle(
                   fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                ),
-                decoration: InputDecoration(
-                  hintText: '  휴대폰 번호',
-
-                  hintStyle: TextStyle(color: Colors.grey.shade500),
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width:2, color: Color(0xFF485FE9)),
-
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(width:2, color: Color(0xFF000000)),
-                  ),
-                ),
-                onChanged: _handleInputChange,
-              ),
-            ),
-            const SizedBox(height: 40),
-            // 버튼
-            Container(
-              width: 360,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  backgroundColor: _isButtonActive
-                      ? const Color(0xFF788aF8)
-                      : const Color(0xFFF6F6F6),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 100,
-                    vertical: 30,
-                  ),
-                ),
-                onPressed: _isButtonActive ? _submitForm : null,
-                child: Text(
-                  '다음',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: _isButtonActive ? Colors.black : Colors.black,
-                  ),
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-            ),
-            const SizedBox(height: 300),
-          ],
+              const SizedBox(height: 40),
+              Container(
+                width: 360,
+                child: TextFormField(
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    PhoneNumberFormatter(),
+                  ],
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: '  휴대폰 번호',
+                    hintStyle: TextStyle(color: Colors.grey.shade500),
+                    enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(width: 2, color: Color(0xFF485FE9)),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(width: 2, color: Color(0xFF000000)),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.length != 13) {
+                      return '유효한 휴대폰 번호를 입력해주세요.';
+                    }
+                    return null;
+                  },
+                  onChanged: _handleInputChange,
+                  onSaved: (value) => _phoneNumber = value ?? '',
+                ),
+              ),
+              const SizedBox(height: 40),
+              Container(
+                width: 360,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    backgroundColor: _isButtonActive
+                        ? const Color(0xFF788aF8)
+                        : const Color(0xFFF6F6F6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 100,
+                      vertical: 30,
+                    ),
+                  ),
+                  onPressed: _isButtonActive ? _submitForm : null,
+                  child: Text(
+                    '다음',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
