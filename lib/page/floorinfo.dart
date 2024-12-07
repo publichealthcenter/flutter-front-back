@@ -74,7 +74,7 @@ class _FloorInfoState extends State<FloorInfo> {
               child: Container(
                 key: ValueKey<int>(selectedFloor),
                 padding: const EdgeInsets.all(16.0),
-                alignment: Alignment.center,
+                alignment: Alignment.topCenter,
                 child: _buildImageCard(floorData[selectedFloor]!),
               ),
             ),
@@ -128,7 +128,6 @@ class _FloorInfoState extends State<FloorInfo> {
   Widget _buildImageCard(Map<String, dynamic> floorInfo) {
     return Card(
       color: Colors.white,
-      elevation: 8,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
